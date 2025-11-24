@@ -25,22 +25,30 @@ describe("POST => /shorten", () => {
 
 describe("GET => /tinyurl/:uniqueUrl", () => {
   it("it should redirect successfully", async () => {
+    const uniqueUrl = "http://localhost:3001/b272d3";
+
     const res = await request(app).get(
-      "/tinyurl/https://github.com/DevDesignAmitesh/macrorides-monorepo"
+      `/tinyurl/${encodeURIComponent(uniqueUrl)}`
     );
 
-    expect(res.statusCode).toBe(302);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("done");
   });
 
   it("it should return not found", async () => {
-    const res = await request(app).get("/tinyurl/https://helllo.com");
+    const uniqueUrl = "http://localhost:3001/11111";
 
+    const res = await request(app).get(
+      `/tinyurl/${encodeURIComponent(uniqueUrl)}`
+    );
     expect(res.statusCode).toBe(404);
     expect(res.body.message).toBe("not found");
   });
 
   it("it should return invalid url", async () => {
-    const res = await request(app).get("/tinyurl/hello");
+    const res = await request(app).get(
+      `/tinyurl/${encodeURIComponent("hello")}`
+    );
 
     expect(res.statusCode).toBe(411);
     expect(res.body.message).toBe("invalid inputs");
@@ -49,8 +57,10 @@ describe("GET => /tinyurl/:uniqueUrl", () => {
 
 describe("GET => /analytics/:uniqueUrl", () => {
   it("it should return the clicks", async () => {
+    const uniqueUrl = "http://localhost:3001/b272d3";
+
     const res = await request(app).get(
-      "/analytics/https://github.com/DevDesignAmitesh/macrorides-monorepo"
+      `/analytics/${encodeURIComponent(uniqueUrl)}`
     );
 
     expect(res.statusCode).toBe(200);
@@ -58,16 +68,20 @@ describe("GET => /analytics/:uniqueUrl", () => {
   });
 
   it("it should return not found", async () => {
-    const res = await request(app).get("/analytics/https://github.com");
+    const res = await request(app).get(
+      `/analytics/${encodeURIComponent("https://github.com")}`
+    );
 
     expect(res.statusCode).toBe(404);
-    expect(res.body.analytics).toBe("not found");
+    expect(res.body.message).toBe("not found");
   });
 
   it("it should return invalid inputs", async () => {
-    const res = await request(app).get("/analytics/hello");
+    const res = await request(app).get(
+      `/analytics/${encodeURIComponent("hello")}`
+    );
 
     expect(res.statusCode).toBe(411);
-    expect(res.body.analytics).toBe("invalid inputs");
+    expect(res.body.message).toBe("invalid inputs");
   });
 });

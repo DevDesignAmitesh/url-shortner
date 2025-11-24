@@ -4,14 +4,13 @@ import { db, eq } from "./db";
 import { urlsTable } from "./schema";
 import { v4 as uuid } from "uuid";
 import { getUrlSchema, UrlSchema } from "./types";
+import { BASE_URL } from "./utils";
 
 export const app = express();
 
 app.use(express.json());
 
-const base_url = process.env.BASE_URL;
-
-console.log("base url", base_url);
+console.log("base url", BASE_URL);
 
 app.post("/shorten", async (req, res) => {
   try {
@@ -27,7 +26,7 @@ app.post("/shorten", async (req, res) => {
 
     const uniqueId = uuid().slice(0, 6);
 
-    const tinyUrl = base_url + "/" + uniqueId;
+    const tinyUrl = BASE_URL + "/" + uniqueId;
 
     await db.insert(urlsTable).values({
       orignalUrl: url,
@@ -44,6 +43,7 @@ app.post("/shorten", async (req, res) => {
 
 app.get("/tinyurl/:uniqueUrl", async (req, res) => {
   try {
+    console.log("running");
     const { data, success, error } = getUrlSchema.safeParse(req.params);
 
     if (!success) {
@@ -55,6 +55,10 @@ app.get("/tinyurl/:uniqueUrl", async (req, res) => {
 
     const { uniqueUrl } = data;
 
+    const urls = await db.query.urlsTable.findMany();
+
+    console.log("these are all urls =>", urls);
+
     const url = await db.query.urlsTable.findFirst({
       where: eq(urlsTable.uniqueUrl, uniqueUrl),
     });
@@ -63,7 +67,7 @@ app.get("/tinyurl/:uniqueUrl", async (req, res) => {
       return res.status(404).json({ message: "not found" });
     }
 
-    return res.redirect(302, uniqueUrl);
+    return res.status(200).json({ message: "done" });
   } catch (error) {
     return res.status(500).json({ message: "internal server error" });
   }
