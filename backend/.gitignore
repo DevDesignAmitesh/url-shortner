@@ -13,7 +13,8 @@ node_modules/
 
 # Ignore environment files
 .env
-.env.*     # e.g. .env.production, .env.local, etc.
+.env.*     
+# e.g. .env.production, .env.local, etc.
 
 # Ignore lock files
 package-lock.json
