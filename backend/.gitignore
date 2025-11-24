@@ -1,7 +1,7 @@
 # Ignore all .log files
 *.log
 
-# Ignore the 'build' directory and its contents
+# Ignore the 'build' and 'dist' directories
 build/
 dist/
 
@@ -10,3 +10,12 @@ config.local.js
 
 # Ignore Node.js dependency directory
 node_modules/
+
+# Ignore environment files
+.env
+.env.*     # e.g. .env.production, .env.local, etc.
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
