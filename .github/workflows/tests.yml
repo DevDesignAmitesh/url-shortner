@@ -1,0 +1,25 @@
+name: Runs test on Pr
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: use nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Run Tests
+        run: pnpm test
