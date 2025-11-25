@@ -1,0 +1,21 @@
+{
+  "name": "url-shortner",
+  "version": "1.0.0",
+  "description": "so this is the learning project for learning testing, some drizzle orm\r and mainly testing now will add the frontend when learning some thing related to frontend like state management and etc...",
+  "main": "index.js",
+  "scripts": {
+    "pnpm test:backend": "cd backend && pnpm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevDesignAmitesh/url-shortner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/DevDesignAmitesh/url-shortner/issues"
+  },
+  "homepage": "https://github.com/DevDesignAmitesh/url-shortner#readme"
+}
