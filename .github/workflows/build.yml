@@ -1,7 +1,7 @@
 name: Runs test on Push
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
