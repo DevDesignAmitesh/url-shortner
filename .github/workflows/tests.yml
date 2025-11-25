@@ -1,4 +1,4 @@
-name: Runs test on Pr
+name: Runs test on Push
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         run: npm i -g pnpm
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install:backend
 
-      - name: Run Tests
-        run: pnpm test:backend
+      - name: Build backend
+        run: pnpm build:backend

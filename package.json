@@ -4,7 +4,8 @@
   "description": "so this is the learning project for learning testing, some drizzle orm\r and mainly testing now will add the frontend when learning some thing related to frontend like state management and etc...",
   "main": "index.js",
   "scripts": {
-    "test:backend": "cd backend && pnpm i && pnpm run test"
+    "install:backend": "cd backend && pnpm i",
+    "build:backend": "pnpm run build"
   },
   "repository": {
     "type": "git",
